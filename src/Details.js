@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 // import Axios from 'axios';
 import Card from './Card';
-
+import { CSSTransition } from 'react-transition-group';
+import Loader from 'react-loader-spinner';
 class Details extends Component {
     constructor(props) {
         super(props)
@@ -110,24 +111,42 @@ class Details extends Component {
                     <div className="col-sm-1"></div>
                     <div style={{height:"50vh" }} className="col-sm-5 card">
                         <div className="card-header">
-                            <i className="fas fa-users mx-2"></i>Followers
+                            <i className="fas fa-users mx-2"></i><span className="text-primary">Followers</span>
                             <span className="badge badge-pill badge-primary float-right">{followers}</span>
                         </div>
-                        <div className="card-body" style={{ overflowY: "scroll"}}>
-                            {(this.state.followers.length ? (
-                                this.state.followers.map((user, i) => <Card key={i} user={user}></Card>)
-                            ) : "No Followers")}
+                        <div className="card-body" style={{ overflowY: "scroll" }}>
+                        <CSSTransition in={this.props.all.loadings} classNames="alert" appear unmountOnExit timeout={100}>
+                            <div className="" style={{}}>
+                                <Loader type="Oval" style={{position:"absolute",left:"40%",top:"30%"}} height={100} width={100} color="black"></Loader>
+                            </div>
+                            </CSSTransition>
+                            <CSSTransition in={Boolean(this.props.all.message1)} classNames="alert" appear unmountOnExit timeout={500}>
+                                <div className="text-light bg-danger text-center p-2 lead">
+                                    <i className="fas fa-times float-left mx-4 cross" onClick={()=>this.props.messageHandler(1)}></i>
+                                    {this.props.all.message1}
+                                </div>
+                            </CSSTransition>
+                            { this.state.followers.map((user, i) => <Card key={i} user={user}></Card>)}
                         </div>
                     </div>
                     <div style={{ height:"50vh" }} className="col-sm-5 card">
                         <div className="card-header">
-                            <i className="fas fa-users mx-2"></i>Following
-                            <span className="badge badge-pill badge-warning float-right">{following}</span>
+                            <i className="fas fa-users mx-2"></i><span className="text-success">Followers</span>
+                            <span className="badge badge-pill badge-success float-right">{following}</span>
                         </div>
-                        <div className="card-body" style={{ overflowY: "scroll"}}>
-                            {(this.state.following.length ? (
-                                this.state.following.map((user, i) => <Card m={0} key={i} user={user}></Card>)
-                            ) : "No Following")}
+                        <div className="card-body" style={{ overflowY: "scroll" }}>
+                            <CSSTransition in={this.props.all.loadingg} classNames="alert" appear unmountOnExit timeout={100}>
+                                <div className="" style={{}}>
+                                    <Loader type="BallTriangle" style={{position:"absolute",left:"40%",top:"30%"}} height={100} width={100} color="black"></Loader>
+                                </div>
+                            </CSSTransition>
+                            <CSSTransition in={Boolean(this.props.all.message2)} classNames="alert" appear unmountOnExit timeout={500}>
+                                <div className="text-light bg-danger text-center p-2 lead">
+                                    <i className="fas fa-times float-left mx-4 cross" onClick={()=>this.props.messageHandler(2)}></i>
+                                    {this.props.all.message2}
+                                </div>
+                            </CSSTransition>
+                            {this.state.following.map((user, i) => <Card m={0} key={i} user={user}></Card>)}
                         </div>
                     </div>
                 </div>

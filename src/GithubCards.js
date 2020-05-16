@@ -14,7 +14,9 @@ class GithubCards extends Component {
             message1:"",
             message2:"",
             user: "",
-            index:0,
+            index: 0,
+            login: [],
+            loging:[],
             data: [],
             followers: [],
             following: [],
@@ -67,45 +69,34 @@ class GithubCards extends Component {
     clickHandler = async (i) => {
         this.toggleDetails();
         this.setState({ index: i,followers:[],following:[],message1:"",message2:"",loadingg:true,loadings:true});
-        await axios.get(`https://api.github.com/users/${this.state.data[i].login}/followers`, { headers: { 'Content-Type': 'application/json' } })
+        await axios.get(`https://api.github.com/users/${this.state.data[i].login}/followers`,
+            { headers: { 'Content-Type': 'application/json' } })
             .then((res, err) => {
-            if (err) console.log("There is an err while getting Followers");
-            res.data.map(async (x, i) => {
-                await axios.get(`https://api.github.com/users/${x.login}`, { headers: { 'Content-Type': 'application/json' } })
-                    .then((res2, err) => {
-                    if (err) console.log(err)
-                    this.setState({ followers: [...this.state.followers, res2.data],message1:"",loadings:false })
-                }).catch((err) => {
-                    if(err.response)
-                        this.setState({ message1: err.response.data.message, loadings: false });
-                    else
-                    this.setState({ message1: err.message, loadings: false });
-                });
-            });
-           this.setState({ loadings: false });
-        //    console.log("Followers data: ", res.data);
+                if (err) console.log("There is an err while getting Followers");
+                this.setState({ login: res.data });
         }).catch((err) => {
             if(err.response)
                 this.setState({ message1: err.response.data.message, loadings: false });
             else
             this.setState({ message1: err.message, loadings: false });
         });
+        this.state.login.map(async (x, i) => {
+            await axios.get(`https://api.github.com/users/${x.login}`, { headers: { 'Content-Type': 'application/json' } })
+                .then((res2, err) => {
+                if (err) console.log(err)
+                this.setState({ followers: [...this.state.followers, res2.data],message1:"",loadings:false })
+            }).catch((err) => {
+                if(err.response)
+                    this.setState({ message1: err.response.data.message, loadings: false });
+                else
+                this.setState({ message1: err.message, loadings: false });
+            });
+        });
+        this.setState({ loadings: false });
         await axios.get(`https://api.github.com/users/${this.state.data[this.state.index].login}/following`, { headers: { 'Content-Type': 'application/json' } })
             .then((res, err) => {
             if (err) console.log("There is an err while getting Followers");
-            res.data.map(async(x, i) => {
-                await axios.get(`https://api.github.com/users/${x.login}`, { headers: { 'Content-Type': 'application/json' } })
-                    .then((res2, err) => {
-                    if (err) console.log(err)
-                        this.setState({ following: [...this.state.following, res2.data], message2: "", loadingg: false });
-                }).catch((err) => {
-                    if(err.response)
-                        this.setState({ message2: err.response.data.message, loadingg: false });
-                    else
-                    this.setState({ message2: err.message, loadingg: false });
-                });
-            })
-           this.setState({ loadingg: false });
+                this.setState({ loging: res.data });
         //    console.log("Following data: ", res.data);
         }).catch((err) => {
             if(err.response)
@@ -113,6 +104,19 @@ class GithubCards extends Component {
             else
             this.setState({ message2: err.message, loadingg: false });
         });   
+        this.state.loging.map(async(x, i) => {
+            await axios.get(`https://api.github.com/users/${x.login}`, { headers: { 'Content-Type': 'application/json' } })
+                .then((res2, err) => {
+                if (err) console.log(err)
+                    this.setState({ following: [...this.state.following, res2.data], message2: "", loadingg: false });
+            }).catch((err) => {
+                if(err.response)
+                    this.setState({ message2: err.response.data.message, loadingg: false });
+                else
+                this.setState({ message2: err.message, loadingg: false });
+            });
+        })
+       this.setState({ loadingg: false });
     }
 
     messageHandler = (i) => { 

@@ -111,7 +111,7 @@ class Details extends Component {
                     <div className="col-sm-1"></div>
                     <div style={{height:"50vh" }} className="col-sm-5 card">
                         <div className="card-header">
-                            <i className="fas fa-users mx-2"></i><span className="text-primary">Followers</span>
+                            <i className="fas fa-users mx-2"></i><span className="text-primary font-weight-bold">Followers</span>
                             <span className="badge badge-pill badge-primary float-right">{followers}</span>
                         </div>
                         <div className="card-body" style={{ overflowY: "scroll" }}>
@@ -126,12 +126,15 @@ class Details extends Component {
                                     {this.props.all.message1}
                                 </div>
                             </CSSTransition>
-                            { this.state.followers.map((user, i) => <Card key={i} user={user}></Card>)}
+                            {
+                                !this.props.all.loadings && !Boolean(this.props.all.message1) ?
+                                this.state.followers.length ?  (this.state.followers.map((user, i) => <Card key={i} user={user}></Card>)) : (<p className="lead text-secondary bg-dark">No Followers</p>):null
+                            }
                         </div>
                     </div>
                     <div style={{ height:"50vh" }} className="col-sm-5 card">
                         <div className="card-header">
-                            <i className="fas fa-users mx-2"></i><span className="text-success">Followers</span>
+                            <i className="fas fa-users mx-2"></i><span className="text-success font-weight-bold">Followers</span>
                             <span className="badge badge-pill badge-success float-right">{following}</span>
                         </div>
                         <div className="card-body" style={{ overflowY: "scroll" }}>
@@ -146,7 +149,10 @@ class Details extends Component {
                                     {this.props.all.message2}
                                 </div>
                             </CSSTransition>
-                            {this.state.following.map((user, i) => <Card m={0} key={i} user={user}></Card>)}
+                            {
+                                !this.props.all.loadingg && !Boolean(this.props.all.message2)?(
+                                this.state.following.length ? (this.state.following.map((user, i) => <Card m={0} key={i} user={user}></Card>)) : <p className="lead text-secondary bg-dark">No Following</p>):null
+                            }
                         </div>
                     </div>
                 </div>

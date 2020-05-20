@@ -30,7 +30,7 @@ class GithubCards extends Component {
   async componentDidMount() {
     await axios
       .get("https://api.github.com/users/RishabMangal", {
-        headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json" },
       })
       .then((res, err) => {
         if (err) console.log(err);

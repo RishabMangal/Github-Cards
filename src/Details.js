@@ -127,14 +127,14 @@ class Details extends Component {
                                 </div>
                             </CSSTransition>
                             {
-                                !this.props.all.loadings && !Boolean(this.props.all.message1) ?
-                                this.state.followers.length ?  (this.state.followers.map((user, i) => <Card key={i} user={user}></Card>)) : (<p className="lead text-secondary bg-dark">No Followers</p>):null
+                                followers ?
+                                this.state.followers.length ?  (this.state.followers.map((user, i) => <Card key={i} user={user}></Card>)) : null :(<p className="lead text-dark text-center bg-warning">No Followers</p>)
                             }
                         </div>
                     </div>
                     <div style={{ height:"50vh" }} className="col-sm-5 card">
                         <div className="card-header">
-                            <i className="fas fa-users mx-2"></i><span className="text-success font-weight-bold">Followers</span>
+                            <i className="fas fa-users mx-2"></i><span className="text-success font-weight-bold">Following</span>
                             <span className="badge badge-pill badge-success float-right">{following}</span>
                         </div>
                         <div className="card-body" style={{ overflowY: "scroll" }}>
@@ -150,8 +150,8 @@ class Details extends Component {
                                 </div>
                             </CSSTransition>
                             {
-                                !this.props.all.loadingg && !Boolean(this.props.all.message2)?(
-                                this.state.following.length ? (this.state.following.map((user, i) => <Card m={0} key={i} user={user}></Card>)) : <p className="lead text-secondary bg-dark">No Following</p>):null
+                                following?(
+                                this.state.following.length ? (this.state.following.map((user, i) => <Card m={0} key={i} user={user}></Card>)) : <p>Loading...</p> ):(<p className="lead text-dark text-center bg-warning">No Following</p>)
                             }
                         </div>
                     </div>

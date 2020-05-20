@@ -3,8 +3,9 @@ import './style.css'
 function Card(props) {
     const { name, bio,avatar_url,company,location,login } = props.user;
     return (
-        <div className={`m-${props.m} card info`}>
-            <div className="card-body row">
+        // <div className={`m-${props.m} card info`}>
+        <div className="m-2 card info">
+            <div className="card-body row m-0">
                 <div className="col-sm-4">
                     <img style={{width:"100%"}} src={avatar_url} alt="shakal"></img>
                 </div>

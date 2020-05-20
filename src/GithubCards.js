@@ -240,7 +240,6 @@ class GithubCards extends Component {
             <div
               className="gitcard col-sm-4 p-0"
               key={i}
-              style={{}}
               onClick={() => this.clickHandler(i)}
             >
               <Card user={user}></Card>

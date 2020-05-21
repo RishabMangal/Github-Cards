@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <GithubCards></GithubCards>
-      <div style={{position: 'relative',bottom:0,width:"100%"}}>
+      <div style={{position: 'relative',bottom:0,width:"100%",marginTop:"100px"}}>
       <Footer></Footer>
       </div>
     </div>

@@ -13,6 +13,7 @@ class GithubCards extends Component {
       message: "",
       message1: "",
       message2: "",
+      inputClass:"is-active",
       user: "",
       index: 0,
       login: [],
@@ -34,7 +35,7 @@ class GithubCards extends Component {
       })
       .then((res, err) => {
         if (err) console.log(err);
-        this.setState({ data: [res.data], loading: false, message: "" });
+        this.setState({ data: [...this.state.data,res.data], loading: false, message: "" });
       })
       .catch((err) => {
         if (err.response)
@@ -64,6 +65,8 @@ class GithubCards extends Component {
             data: [...this.state.data, res.data],
             loading: false,
             message: "",
+            user: "",
+            inputClass:"is-valid"
           });
         })
         .catch((err) => {
@@ -71,10 +74,11 @@ class GithubCards extends Component {
             this.setState({
               message: err.response.data.message,
               loading: false,
+              inputClass:"is-invalid"
             });
-          else this.setState({ message: err.message, loading: false });
+          else this.setState({ message: err.message, loading: false,inputClass:"is-invalid" });
         });
-    } else this.setState({ message: "User Already Added", loading: false });
+    } else this.setState({ message: "User Already Added", loading: false,inputClass:"is-invalid" });
   };
 
   toggleDetails = () => {
@@ -194,7 +198,7 @@ class GithubCards extends Component {
 
   render() {
     return (
-      <div style={{ overflowX: "hidden" }}>
+      <div>
         <h1 className="text-light text-center m-4">Welcome to Github Cards</h1>
         <CSSTransition
           in={Boolean(this.state.message)}
@@ -214,13 +218,13 @@ class GithubCards extends Component {
           </div>
         </CSSTransition>
         <form onSubmit={this.onSubmitHandler}>
-          <div className="form-group row">
+          <div className="form-group row mr-0">
             <div className="col-sm-2"></div>
             <input
               type="text"
               name="name"
               placeholder="Enter Github Handle"
-              className="form-control-lg col-sm-6"
+              className={`form-control-lg col-sm-6 ${this.state.inputClass}`}
               onChange={this.onChangeHandler}
               value={this.state.user}
               required
@@ -235,7 +239,7 @@ class GithubCards extends Component {
           </div>
         </form>
 
-        <div className="row">
+        <div className="row mr-0">
           {this.state.data.map((user, i) => (
             <div
               className="gitcard col-sm-4 p-0"
@@ -276,7 +280,7 @@ class GithubCards extends Component {
           timeout={500}
         >
           <div
-            className="row"
+            className="row m-0"
             style={{
               position: "fixed",
               top: "0px",
@@ -287,8 +291,8 @@ class GithubCards extends Component {
               zIndex: "10",
             }}
           >
-            <div className="col-sm-2"></div>
-            <div className="col-sm-8">
+            <div className="col-sm-2 p-0"></div>
+            <div className="col-sm-8 p-0">
               <Details
                 messageHandler={this.messageHandler}
                 all={this.state}
@@ -298,7 +302,7 @@ class GithubCards extends Component {
                 following={this.state.following}
               ></Details>
             </div>
-            <div className="col-sm-2"></div>
+            <div className="col-sm-2 p-0"></div>
           </div>
         </CSSTransition>
       </div>

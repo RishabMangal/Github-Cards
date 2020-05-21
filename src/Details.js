@@ -31,15 +31,14 @@ class Details extends Component {
         //     name, bio, avatar_url, company, location, login, id, node_id, url, html_url, followers_url, following_url, gists_url, starred_url, subscriptions_url, organizations_url, repos_url, events_url, received_events_url, type, site_admin,email,followers,following
         // } = this.props.user;
         return (
-            <div className="card">
-                <div className="row">
-                    {/* <div className="col-sm-1"></div> */}
+            <div className="card m-0">
+                <div className="row m-0">
                     <div className="col-sm-4">
                         <a href={avatar_url} target="blank">
                             <img style={{ width: "100%", marginTop: "0%", padding: "5%" }} src={avatar_url} alt="logo-avatar"></img>
                         </a>
+                    <p className="text-dark text-center" style={{fontFamily:"cursive"}}>@{login}</p>
                     </div>
-                    {/* <div className="col-sm-2"></div> */}
                     <div className="col-sm-8">
                         <p className="font-weight-bold lead display-4">
                             <i className="fas fa-user-ninja mx-2 p-4"></i>{name}
@@ -78,36 +77,6 @@ class Details extends Component {
                 </div>
                 <hr></hr>
                 <div className="row">
-                    {/* <div className="col-sm-4 row">
-                        <div className="col-sm-6">
-                            <ul>
-                                <li>Github Handle :</li>
-                                <li>id :</li>
-                                <li>Node id :</li>
-                                <li>HTML URL :</li>
-                                <li>GISTS URL :</li>
-                                <li>Starred URL :</li>
-                                <li>Organizations URL :</li>
-                                <li>Repos URL :</li>
-                                <li>Events URL :</li>
-                                <li>Recieved Events URL :</li>
-                            </ul>
-                        </div>
-                        <div className="col-sm-6">
-                            <ul>
-                                <li>{login}</li>
-                                <li>{id}</li>
-                                <li>{node_id}</li>
-                                <li>{html_url}</li>
-                                <li>{gists_url}</li>
-                                <li>{starred_url}</li>
-                                <li>{organizations_url}</li>
-                                <li>{repos_url}</li>
-                                <li>{events_url}</li>
-                                <li>{received_events_url}</li>
-                            </ul>
-                        </div>
-                    </div> */}
                     <div className="col-sm-1"></div>
                     <div style={{height:"50vh" }} className="col-sm-5 card">
                         <div className="card-header">
